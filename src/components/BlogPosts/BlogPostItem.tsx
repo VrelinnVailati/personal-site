@@ -7,7 +7,7 @@ type BlogPostProps = {
   post: Post;
 };
 
-const BlogPost: FC<BlogPostProps> = ({ post }) => {
+const BlogPostItem: FC<BlogPostProps> = ({ post }) => {
   return (
     <div className="flex flex-col shadow shadow-dark-purple mb-2">
       <Link
@@ -32,4 +32,4 @@ const BlogPost: FC<BlogPostProps> = ({ post }) => {
   );
 };
 
-export default BlogPost;
+export default BlogPostItem;
