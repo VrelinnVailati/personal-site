@@ -3,8 +3,6 @@ import Head from "next/head";
 
 import BaseLayout from "@/components/Layouts/BaseLayout";
 import BlogPostsList from "@/components/BlogPosts/BlogPostsList";
-import { GetPostsResponse } from "@/types/Post";
-import { getApiUrl } from "@/utils";
 import { getPosts } from "@/data/posts";
 
 const BlogPage = ({
