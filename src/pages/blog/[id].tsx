@@ -5,6 +5,8 @@ import Head from "next/head";
 import { Post } from "@/types/Post";
 import BaseLayout from "@/components/Layouts/BaseLayout";
 import PostDetails from "@/components/BlogPosts/Post";
+import { getApiUrl } from "@/utils";
+import { getPost } from "@/data/posts";
 
 type BlogPostPageProps = InferGetStaticPropsType<typeof getStaticProps> & {};
 
@@ -25,15 +27,19 @@ const BlogPostPage: FC<BlogPostPageProps> = ({ post }) => {
 export const getStaticProps: GetStaticProps<{ post: Post }> = async ({
   params,
 }) => {
-  const res = await fetch(`${process.env.API_URL}/posts/${params?.id}`);
-
-  if (!res.ok) {
+  if (!params || !params.id || Array.isArray(params.id)) {
     return {
       notFound: true,
     };
   }
 
-  const { post } = (await res.json()) as { post: Post };
+  const post = await getPost(params.id);
+
+  if (!post) {
+    return {
+      notFound: true,
+    };
+  }
 
   return {
     props: {

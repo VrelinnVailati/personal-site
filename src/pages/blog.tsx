@@ -4,6 +4,8 @@ import Head from "next/head";
 import BaseLayout from "@/components/Layouts/BaseLayout";
 import BlogPostsList from "@/components/BlogPosts/BlogPostsList";
 import { GetPostsResponse } from "@/types/Post";
+import { getApiUrl } from "@/utils";
+import { getPosts } from "@/data/posts";
 
 const BlogPage = ({
   posts,
@@ -27,9 +29,7 @@ const BlogPage = ({
 };
 
 export const getStaticProps = async () => {
-  const { posts } = await fetch(`${process.env.API_URL}/posts`).then(
-    (res) => res.json() as Promise<GetPostsResponse>
-  );
+  const posts = await getPosts();
 
   return {
     props: {
