@@ -1,4 +1,4 @@
-import { Post } from "@/types/Post";
+import {Post} from "@/types/Post";
 import prisma from "@/data/prisma";
 
 export const getPosts = (): Promise<Post[]> => {
@@ -12,3 +12,13 @@ export const getPost = (id: string): Promise<Post | null> => {
     },
   });
 };
+
+export const createPost = async (post: Omit<Post, 'id'>): Promise<{id: string}> => {
+  const createdPost = await prisma.posts.create({
+    data: post,
+  });
+
+  return {
+    id: createdPost.id
+  }
+}
