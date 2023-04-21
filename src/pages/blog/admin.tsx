@@ -1,12 +1,15 @@
 import React, { FC, useRef, useState } from "react";
 import { InferGetStaticPropsType } from "next";
+import showdown from "showdown";
+import Head from "next/head";
 
-import BlogPostsList from "@/components/BlogPosts/BlogPostsList";
 import { getPosts } from "@/data/posts";
+import BlogPostContent from "@/components/BlogPosts/BlogPostContent";
+import CreateBlogPost from "@/components/Admin/CreateBlogPost";
 
-type AdminPageProps = InferGetStaticPropsType<typeof getStaticProps> & {};
+type AdminPageProps = {};
 
-const AdminPage: FC<AdminPageProps> = ({ posts }) => {
+const AdminPage: FC<AdminPageProps> = () => {
   const passwordInputRef = useRef<HTMLInputElement>(null);
   const [isVerified, setIsVerified] = useState(true);
   const [isError, setIsError] = useState(false);
@@ -24,73 +27,12 @@ const AdminPage: FC<AdminPageProps> = ({ posts }) => {
 
   return (
     <>
+      <Head>
+        <title>Create a new blog entry</title>
+      </Head>
+
       {isVerified ? (
-        <>
-          <p className="text-3xl">Create a new blog entry</p>
-
-          <div className="grid grid-cols-12 h-5/6">
-            <form className="w-full h-full pr-2 col-span-6 flex flex-col border-r border-r-light-pink">
-              <label htmlFor="title" className="block">
-                Title
-              </label>
-              <input
-                type="text"
-                id="title"
-                className="rounded text-lg text-black pl-2"
-              />
-
-              <div className="flex flex-row w-full justify-start">
-                <div className="w-6/12">
-                  <label htmlFor="longTag" className="block">
-                    Long Tag
-                  </label>
-                  <input
-                    type="text"
-                    id="longTag"
-                    className="w-11/12 rounded text-lg text-black pl-2"
-                  />
-                </div>
-
-                <div className="w-4/12">
-                  <label htmlFor="shortTag" className="block">
-                    Short Tag
-                  </label>
-                  <input
-                    type="text"
-                    id="shortTag"
-                    required
-                    max={3}
-                    min={1}
-                    className="w-11/12 rounded text-lg text-black pl-2"
-                  />
-                </div>
-
-                <div className="w-2/12">
-                  <label htmlFor="sequence" className="block">
-                    Sequence
-                  </label>
-                  <input
-                    type="number"
-                    id="sequence"
-                    className="w-11/12 rounded text-lg text-black pl-2"
-                  />
-                </div>
-              </div>
-
-              <label htmlFor="body" className="block">
-                Body
-              </label>
-              <textarea
-                id="body"
-                className="rounded text-lg text-black pl-1.5 h-full"
-              />
-            </form>
-
-            <div className="col-span-6 pl-2">
-              <p>Here goes the visualization</p>
-            </div>
-          </div>
-        </>
+        <CreateBlogPost />
       ) : (
         <div className="flex flex-col justify-center items-center h-full">
           <div>
@@ -110,16 +52,6 @@ const AdminPage: FC<AdminPageProps> = ({ posts }) => {
       )}
     </>
   );
-};
-
-export const getStaticProps = async () => {
-  const posts = await getPosts();
-
-  return {
-    props: {
-      posts,
-    },
-  };
 };
 
 export default AdminPage;

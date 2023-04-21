@@ -4,8 +4,7 @@ import Head from "next/head";
 
 import { Post } from "@/types/Post";
 import BaseLayout from "@/components/Layouts/BaseLayout";
-import PostDetails from "@/components/BlogPosts/Post";
-import { getApiUrl } from "@/utils";
+import BlogPost from "@/components/BlogPosts/BlogPost";
 import { getPost } from "@/data/posts";
 
 type BlogPostPageProps = InferGetStaticPropsType<typeof getStaticProps> & {};
@@ -18,7 +17,7 @@ const BlogPostPage: FC<BlogPostPageProps> = ({ post }) => {
       </Head>
 
       <BaseLayout pageTitle={post.title}>
-        <PostDetails post={post} />
+        <BlogPost post={post} />
       </BaseLayout>
     </>
   );
