@@ -11,6 +11,9 @@ export type Post = {
 
 export type GetPostsResponse = {
   posts: Post[];
+} | {
+  message: string;
+  id: string;
 };
 
 export type GetPostResponse = {
