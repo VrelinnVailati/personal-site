@@ -8,7 +8,7 @@ const HomePage = () => {
       <Head>
         <title>Resume</title>
       </Head>
-      <BaseLayout pageTitle="My name is Vi!">Hello World!</BaseLayout>
+      <BaseLayout pageTitle="My name is me!">Hello World!</BaseLayout>
     </>
   );
 };
